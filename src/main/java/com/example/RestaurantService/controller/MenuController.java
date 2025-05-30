@@ -1,6 +1,7 @@
 package com.example.RestaurantService.controller;
 
 import com.example.RestaurantService.controller.dto.MenuItemCreateRequest;
+import com.example.RestaurantService.controller.dto.MenuItemPatchRequest;
 import com.example.RestaurantService.controller.dto.MenuItemResponse;
 import com.example.RestaurantService.controller.dto.MenuListResponse;
 import com.example.RestaurantService.service.MenuService;
@@ -44,11 +45,16 @@ public class MenuController {
         return ResponseEntity.ok(MenuMapper.mapMenuItemToResponse(menuService.getMenuItemById(id)));
     }
 
-    @PostMapping()
+    @PostMapping
     public ResponseEntity<MenuItemResponse> createMenuItem(@RequestBody MenuItemCreateRequest request) {
         return ResponseEntity
                 .status(HttpStatus.CREATED)
                 .body(MenuMapper.mapMenuItemToResponse(menuService.createMenuItem(request)));
+    }
+
+    @PatchMapping("/{id}")
+    public ResponseEntity<MenuItemResponse> patchMenuItem(@PathVariable long id, @RequestBody MenuItemPatchRequest patchRequest) {
+        return ResponseEntity.ok(MenuMapper.mapMenuItemToResponse(menuService.editMenuItem(patchRequest, id)));
     }
 
     @DeleteMapping("/{id}")

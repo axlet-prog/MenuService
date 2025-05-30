@@ -1,6 +1,7 @@
 package com.example.RestaurantService.service;
 
 import com.example.RestaurantService.controller.dto.MenuItemCreateRequest;
+import com.example.RestaurantService.controller.dto.MenuItemPatchRequest;
 import com.example.RestaurantService.repository.MenuItem;
 import com.example.RestaurantService.repository.MenuRepository;
 import org.springframework.stereotype.Service;
@@ -36,7 +37,7 @@ public class MenuService {
                     MenuItem.builder()
                             .title(request.title)
                             .description(request.description)
-                            .price(Double.parseDouble(request.getPrice()))
+                            .price(Integer.parseInt(request.getPrice()))
                             .build()
             );
         } catch (NumberFormatException e) {
@@ -44,7 +45,21 @@ public class MenuService {
         }
     }
 
+    public MenuItem editMenuItem(MenuItemPatchRequest request, long sourceId) {
+        MenuItem sourceItem = repo.findById(sourceId).orElseThrow(
+                () -> new RuntimeException("Menu item not found")
+        );
+
+        if (request.getTitle() != null) sourceItem.setTitle(request.getTitle());
+        if (request.getDescription() != null) sourceItem.setDescription(request.getDescription());
+        if (request.getPrice() != null) sourceItem.setPrice(Integer.parseInt(request.getPrice()));
+
+        return repo.save(sourceItem);
+    }
+
     public void deleteMenuItem(long id) {
         repo.deleteById(id);
     }
+
+
 }
