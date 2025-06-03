@@ -29,15 +29,16 @@ public class MenuService {
     }
 
     public MenuItem createMenuItem(MenuItemCreateRequest request) {
-        if (repo.findByTitle(request.title).isPresent()) {
+        if (repo.findByTitle(request.getTitle()).isPresent()) {
             throw new RuntimeException("Menu item with this title already exists already exists");
         }
         try {
             return repo.save(
                     MenuItem.builder()
-                            .title(request.title)
-                            .description(request.description)
-                            .price(Integer.parseInt(request.getPrice()))
+                            .title(request.getTitle())
+                            .description(request.getDescription())
+                            .price(request.getPrice())
+                            .grams(request.getGrams())
                             .build()
             );
         } catch (NumberFormatException e) {
@@ -53,6 +54,7 @@ public class MenuService {
         if (request.getTitle() != null) sourceItem.setTitle(request.getTitle());
         if (request.getDescription() != null) sourceItem.setDescription(request.getDescription());
         if (request.getPrice() != null) sourceItem.setPrice(Integer.parseInt(request.getPrice()));
+        if (request.getGrams() != null) sourceItem.setPrice(request.getGrams());
 
         return repo.save(sourceItem);
     }
@@ -60,6 +62,4 @@ public class MenuService {
     public void deleteMenuItem(long id) {
         repo.deleteById(id);
     }
-
-
 }

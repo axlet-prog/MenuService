@@ -23,5 +23,5 @@ public class MenuItem {
 
     private int price;
 
-
+    private int grams;
 }

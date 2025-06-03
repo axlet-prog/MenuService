@@ -4,7 +4,8 @@ import lombok.Data;
 
 @Data
 public class MenuItemPatchRequest {
-    public String title = null;
-    public String description = null;
-    public String price = null;
+    private String title = null;
+    private String description = null;
+    private String price = null;
+    private Integer grams = null;
 }

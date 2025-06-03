@@ -14,6 +14,7 @@ public class MenuMapper {
                 .title(menuItem.getTitle())
                 .description(menuItem.getDescription())
                 .price(String.valueOf(menuItem.getPrice()))
+                .grams(menuItem.getGrams())
                 .build();
     }
 
