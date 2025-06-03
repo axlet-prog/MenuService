@@ -54,7 +54,7 @@ public class MenuService {
         if (request.getTitle() != null) sourceItem.setTitle(request.getTitle());
         if (request.getDescription() != null) sourceItem.setDescription(request.getDescription());
         if (request.getPrice() != null) sourceItem.setPrice(Integer.parseInt(request.getPrice()));
-        if (request.getGrams() != null) sourceItem.setPrice(request.getGrams());
+        if (request.getGrams() != null) sourceItem.setGrams(request.getGrams());
 
         return repo.save(sourceItem);
     }
